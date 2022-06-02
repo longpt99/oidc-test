@@ -8,12 +8,13 @@ import User from './components/User/User';
 
 function App() {
   const [data, setData] = useState({
-    client_id: 'cg219l13GsIcLvGUY-hJP',
+    client_id: 'n43P5EYdEeRvlwJOzX23J',
     client_secret:
-      'dDkisHalh-Yd0OAYSeL0uqwJQa9Cus5o1UGGqeM6lHE0CWs8wBNDkqwdpTqMKoyP9WBHjv6koefqeWWw_SK5Nw',
+      'RL-pcYiH0ihZlv3qOZhSnXnlf_lzoo_xv6I_ALqL2fRY_qfBfktN3vGMeCpmMQWBaFwqiqFNaV303WGzY9NNNA',
     scope: 'openid',
     response_type: 'code',
     redirect_uri: `${window.location.protocol}//${window.location.host}/user`,
+    logout_redirect_uri: `${window.location.protocol}//${window.location.host}`,
     trinsicTemplateId: 'urn:template:default:twilio-automatic',
   });
   const [token, setToken] = useState(() => {
@@ -36,7 +37,7 @@ function App() {
   };
 
   const loginLink = `${AppConst.SERVER.API}/auth?${stringifiedParams}`;
-  const logoutLink = `${AppConst.SERVER.API}/session/end?client_id=${data.client_id}&post_logout_redirect_uri=${window.location.protocol}//${window.location.host}`;
+  const logoutLink = `${AppConst.SERVER.API}/session/end?client_id=${data.client_id}&post_logout_redirect_uri=${data.logout_redirect_uri}`;
 
   const handleSubmit = (linkUrl) => {
     const link = document.createElement('a');
@@ -72,7 +73,7 @@ function App() {
               <label>Client Secret</label>
               <input
                 required
-                placeholder="Eg: cg219l13GsIcLvGUY-hJP"
+                placeholder="Eg: cg219l13GsIcLvGUY-hJPsdfsdafdafJKGHHJGVBJHGBhshjdgahjsgdjhas"
                 value={data.client_secret}
                 onChange={(e) => {
                   setData({ ...data, client_secret: e.target.value });
@@ -87,6 +88,7 @@ function App() {
                 }}
                 hidden
               />
+              <label>Redirect Url</label>
               <input
                 required
                 placeholder="Eg: http://localhost:3000/user"
@@ -94,7 +96,15 @@ function App() {
                 onChange={(e) => {
                   setData({ ...data, redirect_uri: e.target.value });
                 }}
-                hidden
+              />
+              <label>Logout Redirect Url</label>
+              <input
+                required
+                placeholder="Eg: http://localhost:3000"
+                value={data.logout_redirect_uri}
+                onChange={(e) => {
+                  setData({ ...data, logout_redirect_uri: e.target.value });
+                }}
               />
               <input
                 required
