@@ -1,63 +1,70 @@
 import queryString from 'query-string';
-import { useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 import axios from 'axios';
 import { AppConst } from '../../app.const';
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
-function User() {
-  const { code } = queryString.parse(window.location.search);
+function User(props) {
   const [userData, setUserData] = useState({});
-  const [tokenData, setTokenData] = useState({});
+  const [data, setData] = useState(
+    JSON.parse(localStorage.getItem('inputData') || '')
+  );
+  let history = useHistory();
+
+  const atLink = `${AppConst.SERVER.API}/token`;
 
   async function getSource() {
     try {
-      console.log(1);
-
-      const data = await axios({
+      const { code } = queryString.parse(window.location.search);
+      const reposneAT = await axios({
         method: 'post',
-        url: `${AppConst.SERVER.API}/token`,
+        url: atLink,
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         data: queryString.stringify({
-          client_id: AppConst.ODIC.CLIENT_ID,
-          client_secret: AppConst.ODIC.CLIENT_SECRET,
-          redirect_uri: 'http://localhost:3000/user',
+          client_id: data.client_id,
+          client_secret: data.client_secret,
+          redirect_uri: data.redirect_uri,
           grant_type: 'authorization_code',
           code: code,
         }),
       });
+      props.setToken(reposneAT.data.access_token);
+      localStorage.setItem('token', reposneAT.data.access_token);
       const userProfile = await axios({
         method: 'get',
         url: `${AppConst.SERVER.API}/me?${queryString.stringify({
-          access_token: data.data.access_token,
-          // fields: ['id', 'email'].join(','),
+          access_token: reposneAT.data.access_token,
         })}`,
       });
 
-      setTokenData(data.data);
-      setUserData(userProfile.data);
+      Object.assign(userProfile.data, {
+        credential: JSON.parse(userProfile.data.credential),
+      });
+      setUserData({
+        id_token: reposneAT.data.id_token,
+        scope: reposneAT.data.scope,
+        profile: userProfile.data,
+      });
     } catch (error) {
-      console.log(error.response);
+      console.log(error);
+      localStorage.removeItem('token');
+      history.push('/');
     }
   }
 
   useEffect(() => {
     getSource();
-    // { access_token, expires_in, token_type, refresh_token }
-    // return data.access_token;
   }, []);
-
   return (
-    <>
-      <h1>User Info</h1>
-      <section>
-        <h2>Token</h2>
-        <div>{JSON.stringify(tokenData, null, 2)}</div>
+    <div className="info-user">
+      <h2>User Info</h2>
+      <section className="list-info-user">
+        <div className="content">
+          <pre>{JSON.stringify(userData, null, 2)}</pre>
+        </div>
       </section>
-      <section>
-        <h2>User Profile</h2>
-        <div>{JSON.stringify(userData, null, 2)}</div>
-      </section>
-    </>
+    </div>
   );
 }
 export default User;
