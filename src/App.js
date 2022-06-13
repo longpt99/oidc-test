@@ -8,14 +8,13 @@ import User from './components/User/User';
 
 function App() {
   const [data, setData] = useState({
-    client_id: 'n43P5EYdEeRvlwJOzX23J',
+    client_id: 'Z-7fAvugDzgCRwRwhz5rH',
     client_secret:
-      'RL-pcYiH0ihZlv3qOZhSnXnlf_lzoo_xv6I_ALqL2fRY_qfBfktN3vGMeCpmMQWBaFwqiqFNaV303WGzY9NNNA',
+      '43iwt_B8OZpd204k6TTwepoW16yWkkJWlCIbXFOm9Y1mtQRSsIJ4RdGLA88e0nvqfUkz0DVK85ToQtU4icprSg',
     scope: 'openid',
     response_type: 'code',
     redirect_uri: `${window.location.protocol}//${window.location.host}/user`,
     logout_redirect_uri: `${window.location.protocol}//${window.location.host}`,
-    trinsicTemplateId: 'urn:template:default:twilio-automatic',
   });
   const [token, setToken] = useState(() => {
     const token = localStorage.getItem('token');
@@ -27,9 +26,6 @@ function App() {
     scope: data.scope,
     response_type: data.response_type,
     redirect_uri: data.redirect_uri,
-    extraQueryParams: JSON.stringify({
-      trinsicTemplateId: data.trinsicTemplateId,
-    }),
   });
 
   const setNewToken = (e) => {
@@ -88,7 +84,7 @@ function App() {
                 }}
                 hidden
               />
-              <label>Redirect Url</label>
+              <label>Redirect Link</label>
               <input
                 required
                 placeholder="Eg: http://localhost:3000/user"
@@ -97,7 +93,7 @@ function App() {
                   setData({ ...data, redirect_uri: e.target.value });
                 }}
               />
-              <label>Logout Redirect Url</label>
+              <label>Logout Link</label>
               <input
                 required
                 placeholder="Eg: http://localhost:3000"
@@ -114,14 +110,6 @@ function App() {
                   setData({ ...data, scope: e.target.value });
                 }}
                 hidden
-              />
-              <label>Template Id</label>
-              <input
-                required
-                value={data.trinsicTemplateId}
-                onChange={(e) => {
-                  setData({ ...data, trinsicTemplateId: e.target.value });
-                }}
               />
               <div style={{ display: 'flex' }}>
                 <button

@@ -17,7 +17,7 @@ function User(props) {
   async function getSource() {
     try {
       const { code } = queryString.parse(window.location.search);
-      const reposneAT = await axios({
+      const responseAT = await axios({
         method: 'post',
         url: atLink,
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -29,21 +29,22 @@ function User(props) {
           code: code,
         }),
       });
-      props.setToken(reposneAT.data.access_token);
-      localStorage.setItem('token', reposneAT.data.access_token);
+      console.log('Token: ', responseAT);
+      props.setToken(responseAT.data.access_token);
+      localStorage.setItem('token', responseAT.data.access_token);
       const userProfile = await axios({
         method: 'get',
         url: `${AppConst.SERVER.API}/me?${queryString.stringify({
-          access_token: reposneAT.data.access_token,
+          access_token: responseAT.data.access_token,
         })}`,
       });
-
+      console.log('Me: ', userProfile);
       Object.assign(userProfile.data, {
         credential: JSON.parse(userProfile.data.credential),
       });
       setUserData({
-        id_token: reposneAT.data.id_token,
-        scope: reposneAT.data.scope,
+        id_token: responseAT.data.id_token,
+        scope: responseAT.data.scope,
         profile: userProfile.data,
       });
     } catch (error) {
