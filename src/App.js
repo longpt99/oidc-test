@@ -8,9 +8,9 @@ import User from './components/User/User';
 
 function App() {
   const [data, setData] = useState({
-    client_id: 'Z-7fAvugDzgCRwRwhz5rH',
+    client_id: 'WdS95W60BSOLdS_m0v1UO',
     client_secret:
-      '43iwt_B8OZpd204k6TTwepoW16yWkkJWlCIbXFOm9Y1mtQRSsIJ4RdGLA88e0nvqfUkz0DVK85ToQtU4icprSg',
+      '_YtWUOSGv7zbVy5BgWiY-aZvnSrCjqfjGLJvaL7oIBMfEgpqsvk-KvUBEGQG7J1au7ukHQcTbFjrIJ9RLn63ng',
     scope: 'openid',
     response_type: 'code',
     redirect_uri: `${window.location.protocol}//${window.location.host}/user`,
