@@ -11,8 +11,8 @@ export const AppConst = {
       'OHGGQNJ2DXiM1mi4qBHeGZFdhmuAaKi1uRsZR6Zp8gszMB0VizxvhSObMFU18Xq3maDJVwXXYnzArrAsgRMXWg',
   },
   SERVER: {
-    // API: 'http://localhost:8888/oidc',
+    API: 'http://localhost:8888/oidc',
     // API: 'http://localhost:8080/api/v1/oidc',
-    API: 'https://oidc.dev.dentity.com/oidc',
+    // API: 'https://oidc.dev.dentity.com/oidc',
   },
 };

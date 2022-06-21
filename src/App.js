@@ -1,5 +1,5 @@
 import queryString from 'query-string';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { AppConst } from './app.const';
 import './App.css';
@@ -9,12 +9,13 @@ import AuthImage from './images/index';
 
 function App() {
   const [data, setData] = useState({
-    client_id: '',
-    client_secret: '',
+    client_id: 'r63RdsmM4Gifn5Gxm1ZFn',
+    client_secret:
+      'XJYeb3qtSvXOcHPL3cMo3QJgQs65ZmyJlwh2MoW7rqy_ScBP3K9Vm_hGfBaVnAPYwR8F4h5q_URpGEAll16rRA',
     scope: 'openid',
     response_type: 'code',
-    redirect_uri: '',
-    logout_redirect_uri: '',
+    redirect_uri: 'http://localhost:3000/user',
+    logout_redirect_uri: 'http://localhost:3000',
   });
   const [token, setToken] = useState(() => {
     const token = localStorage.getItem('token');
@@ -42,6 +43,12 @@ function App() {
     link.click();
     localStorage.setItem('inputData', JSON.stringify(data));
   };
+
+  useEffect(() => {
+    if (localStorage.getItem('inputData')) {
+      setData(JSON.parse(localStorage.getItem('inputData')));
+    }
+  }, []);
 
   return (
     <div>
@@ -142,6 +149,12 @@ function App() {
                   <button
                     class="btn-submit"
                     onClick={() => handleSubmit(loginLink)}
+                    disabled={
+                      data.client_id === '' ||
+                      data.client_secret === '' ||
+                      data.redirect_uri === '' ||
+                      data.logout_redirect_uri === ''
+                    }
                   >
                     Grant Access
                   </button>

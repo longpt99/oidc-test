@@ -359,3 +359,9 @@ a {
     width: 110%;
   }
 }
+
+button:disabled,
+button[disabled] {
+  cursor: not-allowed !important;
+  opacity: 0.5;
+}
