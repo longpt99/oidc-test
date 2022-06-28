@@ -9,13 +9,12 @@ import AuthImage from './images/index';
 
 function App() {
   const [data, setData] = useState({
-    client_id: 'r63RdsmM4Gifn5Gxm1ZFn',
-    client_secret:
-      'XJYeb3qtSvXOcHPL3cMo3QJgQs65ZmyJlwh2MoW7rqy_ScBP3K9Vm_hGfBaVnAPYwR8F4h5q_URpGEAll16rRA',
+    client_id: '',
+    client_secret: '',
     scope: 'openid',
     response_type: 'code',
-    redirect_uri: 'http://localhost:3000/user',
-    logout_redirect_uri: 'http://localhost:3000',
+    redirect_uri: '',
+    logout_redirect_uri: '',
   });
   const [token, setToken] = useState(() => {
     const token = localStorage.getItem('token');
