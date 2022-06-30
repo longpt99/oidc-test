@@ -389,6 +389,16 @@ button[disabled] {
     display: flex;
     flex-direction: column;
   }
+  .bodyTop {
+    width: 100%;
+    height: 20%;
+    min-height: 10vh;
+    display: flex;
+    justify-content: center;
+  }
+  .logoButton {
+    margin: 0 0 0 0;
+  }
   .btn-submit {
     width: 300px !important;
     margin: 0 auto !important;
