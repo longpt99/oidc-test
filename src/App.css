@@ -253,6 +253,14 @@ a {
   font-family: Arial, sans-serif;
 }
 
+@media screen and (max-width: 800px) {
+  .login-card label {
+    margin-left: -25px;
+    color: #999;
+    font-family: Arial, sans-serif;
+  }
+}
+
 .login-container {
   position: relative;
   display: flex;
