@@ -248,6 +248,10 @@ a {
   margin-bottom: 10px;
 }
 
+.login-card select {
+  max-width: 447px;
+}
+
 .login-card label {
   color: #999;
   font-family: Arial, sans-serif;
@@ -374,7 +378,6 @@ button[disabled] {
   opacity: 0.5;
 }
 
-
 @media screen and (max-width: 800px) {
   .titleOIDC {
     width: 70%;
@@ -384,7 +387,7 @@ button[disabled] {
     font-size: 38px;
     line-height: 46px;
     text-align: center;
-    color: #3B95D4;
+    color: #3b95d4;
   }
   .login-card {
     width: 90%;
