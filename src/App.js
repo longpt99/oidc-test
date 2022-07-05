@@ -1,26 +1,38 @@
-import queryString from 'query-string';
-import { useState } from 'react';
-import { Route, Switch, useHistory } from 'react-router-dom';
-import { AppConst } from './app.const';
-import './App.css';
-import Header from './components/Header/Header';
-import User from './components/User/User';
-import AuthImage from './images/index';
+import queryString from "query-string";
+import { useState } from "react";
+import { Route, Switch, useHistory } from "react-router-dom";
+import { AppConst } from "./app.const";
+import "./App.css";
+import Header from "./components/Header/Header";
+import User from "./components/User/User";
+import AuthImage from "./images/index";
+
+const options = [
+  {
+    label: "DEV",
+    value: "https://oidc.dev.dentity.com/oidc",
+  },
+  {
+    label: "PROD",
+    value: "https://oidc.dentity.com/oidc",
+  },
+];
 
 function App() {
   const [data, setData] = useState({
-    client_id: '',
-    client_secret: '',
-    scope: 'openid',
-    response_type: 'code',
-    redirect_uri: '',
-    logout_redirect_uri: '',
+    client_id: "",
+    client_secret: "",
+    scope: "openid",
+    response_type: "code",
+    redirect_uri: "",
+    logout_redirect_uri: "",
   });
 
   const [token, setToken] = useState(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     return token;
   });
+  const [valueEnvironment, setValueEnvironment] = useState(null);
 
   let history = useHistory();
   const stringifiedParams = queryString.stringify({
@@ -32,16 +44,26 @@ function App() {
   const setNewToken = (e) => {
     setToken(e);
   };
-  const loginLink = `${AppConst.SERVER.API}/auth?${stringifiedParams}`;
-  const logoutLink = `${AppConst.SERVER.API}/session/end?client_id=${data.client_id}&post_logout_redirect_uri=${data.logout_redirect_uri}`;
+  const loginLink = `${
+    localStorage.getItem("serverApi")
+      ? localStorage.getItem("serverApi")
+      : AppConst.SERVER.API
+  }/auth?${stringifiedParams}`;
+  const logoutLink = `${
+    localStorage.getItem("serverApi")
+      ? localStorage.getItem("serverApi")
+      : AppConst.SERVER.API
+  }/session/end?client_id=${data.client_id}&post_logout_redirect_uri=${
+    data.logout_redirect_uri
+  }`;
   const handleSubmit = (linkUrl) => {
-    const link = document.createElement('a');
+    const link = document.createElement("a");
     link.href = linkUrl;
     document.body.appendChild(link);
     link.click();
-    localStorage.setItem('inputData', JSON.stringify(data));
+    localStorage.setItem("inputData", JSON.stringify(data));
   };
-  if (history.location.pathname === '/user') {
+  if (history.location.pathname === "/user") {
     return (
       <>
         <Header logoutLink={logoutLink} loginLink={loginLink} />
@@ -53,7 +75,7 @@ function App() {
       </>
     );
   }
-  if (!token && history.location.pathname === '/') {
+  if (!token && history.location.pathname === "/") {
     return (
       <div className="login-container">
         <div className="login-card">
@@ -66,13 +88,22 @@ function App() {
             >
               <img
                 src={AuthImage.logoBlueWeb}
-                alt={'dentity'}
+                alt={"dentity"}
                 className="logo"
               />
             </a>
           </div>
           <div className="body">
             <div className="titleOIDC">Configure OIDC Client</div>
+            <select
+              onChange={(e) => {
+                localStorage.setItem("serverApi", e.target.value);
+              }}
+            >
+              {options.map((option) => (
+                <option value={option.value}>{option.label}</option>
+              ))}
+            </select>
             <form
               className="form"
               onSubmit={(e) => {
@@ -134,7 +165,7 @@ function App() {
                 className="inputNone"
                 hidden
               />
-              <div className="container_btn" style={{ display: 'flex' }}>
+              <div className="container_btn" style={{ display: "flex" }}>
                 <button
                   class="btn-submit btn-logout"
                   onClick={() => handleSubmit(logoutLink)}
@@ -145,10 +176,10 @@ function App() {
                   class="btn-submit"
                   onClick={() => handleSubmit(loginLink)}
                   disabled={
-                    data.client_id === '' ||
-                    data.client_secret === '' ||
-                    data.redirect_uri === '' ||
-                    data.logout_redirect_uri === ''
+                    data.client_id === "" ||
+                    data.client_secret === "" ||
+                    data.redirect_uri === "" ||
+                    data.logout_redirect_uri === ""
                   }
                 >
                   Grant Access

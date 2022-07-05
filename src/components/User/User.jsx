@@ -12,7 +12,7 @@ function User(props) {
   );
   let history = useHistory();
 
-  const atLink = `${AppConst.SERVER.API}/token`;
+  const atLink = `${localStorage.getItem("serverApi") ? localStorage.getItem("serverApi") : AppConst.SERVER.API}/token`;
 
   async function getSource() {
     try {
@@ -34,7 +34,7 @@ function User(props) {
       localStorage.setItem('token', responseAT.data.access_token);
       const userProfile = await axios({
         method: 'get',
-        url: `${AppConst.SERVER.API}/me?${queryString.stringify({
+        url: `${localStorage.getItem("serverApi") ? localStorage.getItem("serverApi") : AppConst.SERVER.API}/me?${queryString.stringify({
           access_token: responseAT.data.access_token,
         })}`,
       });
