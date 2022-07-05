@@ -16,10 +16,12 @@ function App() {
     redirect_uri: '',
     logout_redirect_uri: '',
   });
+
   const [token, setToken] = useState(() => {
     const token = localStorage.getItem('token');
     return token;
   });
+
   let history = useHistory();
   const stringifiedParams = queryString.stringify({
     client_id: data.client_id,
@@ -80,7 +82,6 @@ function App() {
               <label className="label">Client ID</label>
               <input
                 required
-                placeholder="IbTmT2-URGaDIGgnI4vMh"
                 value={data.client_id}
                 onChange={(e) => {
                   setData({ ...data, client_id: e.target.value });
@@ -90,7 +91,6 @@ function App() {
               <label className="label">Client Secret</label>
               <input
                 required
-                placeholder="EoUHG3M3Eycg-9snrnlF9a9SDVrR1F2aPXsLIK9kE4dkZDbbT2MAX24hvHTafAEztD86fHoihBiVF6Tja2DUcg"
                 value={data.client_secret}
                 onChange={(e) => {
                   setData({ ...data, client_secret: e.target.value });
@@ -99,7 +99,6 @@ function App() {
               />
               <input
                 required
-                placeholder="Eg: code"
                 value={data.response_type}
                 onChange={(e) => {
                   setData({ ...data, response_type: e.target.value });
@@ -111,7 +110,6 @@ function App() {
               <input
                 className="input"
                 required
-                placeholder={`${window.location.protocol}//${window.location.host}/user`}
                 value={data.redirect_uri}
                 onChange={(e) => {
                   setData({ ...data, redirect_uri: e.target.value });
@@ -121,7 +119,6 @@ function App() {
               <input
                 className="input"
                 required
-                placeholder={`${window.location.protocol}//${window.location.host}`}
                 value={data.logout_redirect_uri}
                 onChange={(e) => {
                   setData({ ...data, logout_redirect_uri: e.target.value });
