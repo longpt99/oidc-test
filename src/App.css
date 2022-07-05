@@ -420,6 +420,9 @@ button[disabled] {
   .input {
     padding: 0 5px 0 20px;
   }
+  .select {
+    width: 110% !important;
+  }
   .form {
     width: 80%;
   }
