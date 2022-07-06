@@ -416,6 +416,7 @@ button[disabled] {
     display: block;
     margin-bottom: 10px !important;
     position: relative;
+    cursor: none;
   }
   .input {
     padding: 0 5px 0 20px;
