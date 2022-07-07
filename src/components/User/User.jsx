@@ -1,8 +1,6 @@
-import queryString from 'query-string';
-import { Fragment, useEffect } from 'react';
 import axios from 'axios';
-import { AppConst } from '../../app.const';
-import { useState } from 'react';
+import queryString from 'query-string';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 function User(props) {
@@ -12,7 +10,7 @@ function User(props) {
   );
   let history = useHistory();
 
-  const atLink = `${localStorage.getItem("serverApi") ? localStorage.getItem("serverApi") : AppConst.SERVER.API}/token`;
+  const atLink = `${data.link_env}/token`;
 
   async function getSource() {
     try {
@@ -34,7 +32,7 @@ function User(props) {
       localStorage.setItem('token', responseAT.data.access_token);
       const userProfile = await axios({
         method: 'get',
-        url: `${localStorage.getItem("serverApi") ? localStorage.getItem("serverApi") : AppConst.SERVER.API}/me?${queryString.stringify({
+        url: `${data.link_env}/me?${queryString.stringify({
           access_token: responseAT.data.access_token,
         })}`,
       });
