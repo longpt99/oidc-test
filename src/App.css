@@ -121,27 +121,24 @@ a {
 }
 
 .btn-submit {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 16px 30px;
-  gap: 10px;
-  width: 191px;
-  height: 53px;
-  background: #3b95d4;
-  border-radius: 55px;
-  font-family: 'Fira Sans', sans-serif;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 70%;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  color: #ffffff;
   border: none;
-  cursor: pointer;
+  user-select: none;
+  outline: none;
+  background: transparent;
+  padding: 0;
+  display: block;
+  text-align: left;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  /* margin-top: 10px; */
+  height: 54px;
+  width: 100%;
+  border-radius: 5px;
+  background-color: #00a4dd;
+  color: #ffffff;
+  text-align: center;
+  font-size: 18px;
+  line-height: 22px;
 }
 
 .btn-logout {
